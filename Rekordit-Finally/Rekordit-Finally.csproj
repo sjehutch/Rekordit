@@ -20,7 +20,7 @@
         <MauiXamlInflator>SourceGen</MauiXamlInflator>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.4</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
@@ -48,4 +48,22 @@
       <Folder Include="Views\" />
     </ItemGroup>
 
+    <Target Name="BuildCaptureBridge" BeforeTargets="_CollectBundleResources"
+            Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'"
+            Inputs="Platforms/MacCatalyst/CaptureBridge/CaptureBridge.swift;Platforms/MacCatalyst/CaptureBridge/SelectionGeometry.swift;Platforms/MacCatalyst/CaptureBridge/GIFEncoder.swift;Platforms/MacCatalyst/CaptureBridge/Info.plist"
+            Outputs="$(IntermediateOutputPath)CaptureBridge.bundle/Contents/MacOS/CaptureBridge">
+        <PropertyGroup>
+            <CaptureBridgePath>$(IntermediateOutputPath)CaptureBridge.bundle</CaptureBridgePath>
+            <CaptureBridgeArch Condition="'$(RuntimeIdentifier)' == 'maccatalyst-x64'">x86_64</CaptureBridgeArch>
+            <CaptureBridgeArch Condition="'$(CaptureBridgeArch)' == ''">arm64</CaptureBridgeArch>
+        </PropertyGroup>
+        <MakeDir Directories="$(CaptureBridgePath)/Contents/MacOS" />
+        <Copy SourceFiles="Platforms/MacCatalyst/CaptureBridge/Info.plist" DestinationFolder="$(CaptureBridgePath)/Contents" />
+        <Exec Command="xcrun swiftc -swift-version 5 -emit-library -target $(CaptureBridgeArch)-apple-macos12.3 Platforms/MacCatalyst/CaptureBridge/SelectionGeometry.swift Platforms/MacCatalyst/CaptureBridge/GIFEncoder.swift Platforms/MacCatalyst/CaptureBridge/CaptureBridge.swift -o &quot;$(CaptureBridgePath)/Contents/MacOS/CaptureBridge&quot;" />
+        <Exec Command="codesign --force --sign - &quot;$(CaptureBridgePath)&quot;" />
+        <ItemGroup>
+            <BundleResource Include="$(CaptureBridgePath)/Contents/Info.plist" Link="CaptureBridge.bundle/Contents/Info.plist" />
+            <BundleResource Include="$(CaptureBridgePath)/Contents/MacOS/CaptureBridge" Link="CaptureBridge.bundle/Contents/MacOS/CaptureBridge" />
+        </ItemGroup>
+    </Target>
 </Project>

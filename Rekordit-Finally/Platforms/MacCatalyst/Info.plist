@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSScreenCaptureUsageDescription</key>
+    <string>Rekordit records only the screen area you select and saves it locally as a GIF.</string>
     <key>UIDeviceFamily</key>
     <array><integer>2</integer></array>
     <key>LSApplicationCategoryType</key>

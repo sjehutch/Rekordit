@@ -2,21 +2,42 @@ namespace Rekordit_Finally.Views;
 
 public partial class Home : ContentPage
 {
-    public Home()
+    public Home() => InitializeComponent();
+
+    protected override void OnAppearing()
     {
-        InitializeComponent();
-        DisplayPicker.SelectedIndex = 0;
-        FrameRatePicker.SelectedIndex = 1;
-        WidthPicker.SelectedIndex = 2;
-        AppearancePicker.SelectedIndex = (int)(Application.Current?.UserAppTheme ?? AppTheme.Unspecified);
+        base.OnAppearing();
+#if MACCATALYST
+        Dispatcher.Dispatch(async () =>
+        {
+            MacCapture.ResizeWindow(420, 260);
+            try { MacCapture.InstallMenuBar(); }
+            catch (Exception error) { await DisplayAlertAsync("Menu bar unavailable", error.Message, "OK"); }
+        });
+#endif
     }
 
-    private void OnAppearanceChanged(object? sender, EventArgs e)
-    {
-        if (Application.Current is not { } app || AppearancePicker.SelectedIndex < 0)
-            return;
+    private async void OnSettings(object? sender, EventArgs e) =>
+        await Navigation.PushModalAsync(new Settings());
 
-        app.UserAppTheme = (AppTheme)AppearancePicker.SelectedIndex;
-        Preferences.Default.Set(App.AppearancePreference, AppearancePicker.SelectedIndex);
+    private async void OnSelectArea(object? sender, EventArgs e)
+    {
+        SelectButton.IsEnabled = false;
+        try
+        {
+#if MACCATALYST
+            await MacCapture.StartAsync();
+#else
+            await DisplayAlertAsync("Screen capture", "Area recording is available on Mac Catalyst.", "OK");
+#endif
+        }
+        catch (Exception error)
+        {
+            await DisplayAlertAsync("Could not start capture", error.Message, "OK");
+        }
+        finally
+        {
+            SelectButton.IsEnabled = true;
+        }
     }
 }

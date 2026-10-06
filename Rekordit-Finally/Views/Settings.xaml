@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Rekordit_Finally.Views.Settings" Title="Settings"
+             BackgroundColor="{AppThemeBinding Light=#FCFCFE, Dark=#151820}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Styles/HomeStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Settings" Style="{StaticResource HomeHeading}" />
+                <Button Grid.Column="1" Text="Done" Clicked="OnDone" Style="{StaticResource HomeButton}" />
+            </Grid>
+            <Grid ColumnDefinitions="*,1.25*" RowDefinitions="Auto,Auto,Auto" RowSpacing="16" ColumnSpacing="12">
+                <Label Text="Frame rate" Style="{StaticResource HomeLabel}" />
+                <Picker x:Name="FrameRatePicker" Grid.Column="1" Title="Frame rate" Style="{StaticResource HomePicker}" SelectedIndexChanged="OnChanged">
+                    <Picker.Items><x:String>5 fps</x:String><x:String>10 fps</x:String><x:String>15 fps</x:String><x:String>30 fps</x:String></Picker.Items>
+                </Picker>
+                <Label Grid.Row="1" Text="Show cursor" Style="{StaticResource HomeLabel}" />
+                <Switch x:Name="CursorSwitch" Grid.Row="1" Grid.Column="1" HorizontalOptions="End"
+                        OnColor="{StaticResource HomeBlue}" Toggled="OnChanged" SemanticProperties.Description="Show cursor in recordings" />
+                <Label Grid.Row="2" Text="Appearance" Style="{StaticResource HomeLabel}" />
+                <Picker x:Name="AppearancePicker" Grid.Row="2" Grid.Column="1" Title="Appearance" Style="{StaticResource HomePicker}" SelectedIndexChanged="OnChanged">
+                    <Picker.Items><x:String>System</x:String><x:String>Light</x:String><x:String>Dark</x:String></Picker.Items>
+                </Picker>
+            </Grid>
+            <Label Text="Drag to choose the area and dimensions to record." FontSize="14"
+                   TextColor="{AppThemeBinding Light=#7D859B, Dark=#AAB3C6}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

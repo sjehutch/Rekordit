@@ -10,5 +10,5 @@ public class App : Application
     }
 
     protected override Window CreateWindow(IActivationState? activationState) =>
-        new(new AppShell()) { Title = "Screen to GIF" };
+        new(new AppShell()) { Title = "Screen to GIF", Width = 420, Height = 260, MinimumWidth = 380, MinimumHeight = 240 };
 }

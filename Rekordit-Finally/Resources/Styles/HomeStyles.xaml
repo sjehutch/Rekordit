@@ -3,7 +3,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Color x:Key="HomeInk">#101522</Color>
     <Color x:Key="HomeMuted">#7D859B</Color>
-    <Color x:Key="HomeLine">#D9DDE7</Color>
     <Color x:Key="HomeBlue">#0866FF</Color>
     <Style x:Key="HomeLabel" TargetType="Label">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource HomeInk}, Dark=#F3F5FA}" />
@@ -14,24 +13,12 @@
         <Setter Property="FontSize" Value="22" />
         <Setter Property="FontAttributes" Value="Bold" />
     </Style>
-    <Style x:Key="HomeCard" TargetType="Border">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#FDFDFE, Dark=#202530}" />
-        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource HomeLine}, Dark=#414958}" />
-        <Setter Property="StrokeThickness" Value="1" />
-        <Setter Property="StrokeShape" Value="RoundRectangle 12" />
-        <Setter Property="Padding" Value="20" />
-    </Style>
     <Style x:Key="HomePicker" TargetType="Picker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource HomeInk}, Dark=#F3F5FA}" />
         <Setter Property="TitleColor" Value="{AppThemeBinding Light={StaticResource HomeMuted}, Dark=#AAB3C6}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontSize" Value="18" />
         <Setter Property="HeightRequest" Value="46" />
-    </Style>
-    <Style x:Key="HomeField" TargetType="Border">
-        <Setter Property="Stroke" Value="{AppThemeBinding Light=#C8CEDC, Dark=#50596B}" />
-        <Setter Property="StrokeShape" Value="RoundRectangle 8" />
-        <Setter Property="Padding" Value="2" />
     </Style>
     <Style x:Key="HomeButton" TargetType="Button">
         <Setter Property="FontSize" Value="18" />
@@ -40,33 +27,5 @@
         <Setter Property="Padding" Value="22,0" />
         <Setter Property="BackgroundColor" Value="{StaticResource HomeBlue}" />
         <Setter Property="TextColor" Value="White" />
-    </Style>
-    <Style x:Key="PreviewPlaceholder" TargetType="Border">
-        <Setter Property="BackgroundColor" Value="#E4ECF7" />
-        <Setter Property="StrokeThickness" Value="0" />
-        <Setter Property="StrokeShape" Value="RoundRectangle 8" />
-    </Style>
-    <Style x:Key="CaptureOption" TargetType="RadioButton">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource HomeInk}, Dark=#F3F5FA}" />
-        <Setter Property="FontSize" Value="18" />
-        <Setter Property="MinimumHeightRequest" Value="52" />
-        <Setter Property="HorizontalOptions" Value="Fill" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="ControlTemplate">
-            <ControlTemplate>
-                <Border BackgroundColor="{TemplateBinding BackgroundColor}" StrokeThickness="0"
-                        StrokeShape="RoundRectangle 6" Padding="12,10">
-                    <Label Text="{TemplateBinding Content}" TextColor="{TemplateBinding TextColor}"
-                           FontSize="{TemplateBinding FontSize}" HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center" />
-                </Border>
-            </ControlTemplate>
-        </Setter>
-        <Style.Triggers>
-            <Trigger TargetType="RadioButton" Property="IsChecked" Value="True">
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource HomeBlue}, Dark=#8DB9FF}" />
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#DCE8FF, Dark=#233D66}" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 </ResourceDictionary>

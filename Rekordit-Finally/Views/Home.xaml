@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Rekordit_Finally.Views.Home"
-             Title="Screen to GIF"
-             Shell.NavBarIsVisible="False"
+             Title="Screen to GIF" Shell.NavBarIsVisible="False"
              BackgroundColor="{AppThemeBinding Light=#FCFCFE, Dark=#151820}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -12,193 +11,16 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ContentPage.Resources>
-
-    <Grid RowDefinitions="*,Auto">
-        <ScrollView>
-            <VerticalStackLayout Padding="24,24,24,18" Spacing="20">
-                <VerticalStackLayout Spacing="6" Margin="0,0,0,2">
-                    <Label Text="Capture something worth sharing."
-                           Style="{StaticResource HomeHeading}" FontSize="34"
-                           HorizontalTextAlignment="Center" />
-                    <Label Text="Record your screen. Save a GIF. All on your Mac."
-                           Style="{StaticResource HomeLabel}" FontSize="21"
-                           TextColor="{AppThemeBinding Light=#5F6472, Dark=#B7BECD}" HorizontalTextAlignment="Center" />
-                </VerticalStackLayout>
-
-                <Grid x:Name="Workspace" ColumnDefinitions="*" RowDefinitions="Auto,Auto" RowSpacing="16">
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="WindowLayout">
-                            <VisualState x:Name="Narrow">
-                                <VisualState.StateTriggers>
-                                    <AdaptiveTrigger MinWindowWidth="0" />
-                                </VisualState.StateTriggers>
-                            </VisualState>
-                            <VisualState x:Name="Wide">
-                                <VisualState.StateTriggers>
-                                    <AdaptiveTrigger MinWindowWidth="1000" />
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Property="Grid.ColumnDefinitions" Value="2.1*,*" />
-                                    <Setter Property="Grid.ColumnSpacing" Value="16" />
-                                    <Setter TargetName="CaptureCard" Property="Grid.Row" Value="0" />
-                                    <Setter TargetName="CaptureCard" Property="Grid.Column" Value="1" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
-                    <Border Style="{StaticResource HomeCard}" Padding="12">
-                        <Grid RowDefinitions="Auto,*,Auto" RowSpacing="12">
-                            <Grid ColumnDefinitions="*,Auto" Padding="10,0">
-                                <Label Text="Preview" Style="{StaticResource HomeHeading}" FontSize="20" />
-                                <Border Grid.Column="1" BackgroundColor="{AppThemeBinding Light=#E8EAF1, Dark=#343A48}" StrokeThickness="0"
-                                        StrokeShape="RoundRectangle 16" Padding="14,5">
-                                    <Label Text="Ready" Style="{StaticResource HomeLabel}" FontSize="14" />
-                                </Border>
-                            </Grid>
-
-                            <!-- Decorative preview until a capture source is connected. -->
-                            <Border Grid.Row="1" StrokeThickness="0" StrokeShape="RoundRectangle 6"
-                                    HeightRequest="480" Padding="20" SemanticProperties.Description="Illustration of a desktop capture preview">
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#99C1FF" Offset="0" />
-                                        <GradientStop Color="#BFC7FF" Offset="0.4" />
-                                        <GradientStop Color="#3274EF" Offset="1" />
-                                    </LinearGradientBrush>
-                                </Border.Background>
-                                <Grid RowDefinitions="*,Auto">
-                                    <Ellipse Fill="#578CF3" Opacity="0.45" WidthRequest="650"
-                                             HeightRequest="250" Rotation="25" TranslationX="-100" />
-                                    <Border BackgroundColor="#FAFCFF" Stroke="#D8DFEF" StrokeShape="RoundRectangle 10"
-                                            MaximumWidthRequest="490" HeightRequest="300" HorizontalOptions="Center" VerticalOptions="Center">
-                                        <Border.Shadow>
-                                            <Shadow Brush="#254B90" Offset="0,8" Radius="20" Opacity="0.3" />
-                                        </Border.Shadow>
-                                        <Grid RowDefinitions="30,28,*">
-                                            <Grid BackgroundColor="#E4E6EB" Padding="10,8">
-                                                <HorizontalStackLayout Spacing="6">
-                                                    <Ellipse Fill="#FF6259" WidthRequest="10" HeightRequest="10" />
-                                                    <Ellipse Fill="#FFBD2E" WidthRequest="10" HeightRequest="10" />
-                                                    <Ellipse Fill="#28C840" WidthRequest="10" HeightRequest="10" />
-                                                </HorizontalStackLayout>
-                                            </Grid>
-                                            <Grid Grid.Row="1" ColumnDefinitions="Auto,*" Padding="14,4" ColumnSpacing="14">
-                                                <Label Text="‹   ›   ⟳" TextColor="#939CAD" FontSize="14" />
-                                                <Border Grid.Column="1" BackgroundColor="#E5E8EE" StrokeThickness="0"
-                                                        StrokeShape="RoundRectangle 6" Margin="0,0,60,0" />
-                                            </Grid>
-                                            <Grid Grid.Row="2" RowDefinitions="*,80" Padding="28,8,28,16" RowSpacing="14">
-                                                <Border Style="{StaticResource PreviewPlaceholder}">
-                                                    <Label Text="△" FontSize="80" TextColor="#B9CDEA"
-                                                           HorizontalOptions="Center" VerticalOptions="Center" />
-                                                </Border>
-                                                <Grid Grid.Row="1" ColumnDefinitions="*,*,*" ColumnSpacing="14">
-                                                    <Border Style="{StaticResource PreviewPlaceholder}" Padding="12">
-                                                        <VerticalStackLayout Spacing="6">
-                                                            <BoxView Color="#BDCFEB" WidthRequest="42" HeightRequest="24" HorizontalOptions="Start" />
-                                                            <BoxView Color="#BDCFEB" HeightRequest="5" />
-                                                            <BoxView Color="#BDCFEB" HeightRequest="5" Margin="0,0,15,0" />
-                                                        </VerticalStackLayout>
-                                                    </Border>
-                                                    <Border Grid.Column="1" Style="{StaticResource PreviewPlaceholder}" Padding="12">
-                                                        <VerticalStackLayout Spacing="6">
-                                                            <BoxView Color="#BDCFEB" WidthRequest="42" HeightRequest="24" HorizontalOptions="Start" />
-                                                            <BoxView Color="#BDCFEB" HeightRequest="5" />
-                                                            <BoxView Color="#BDCFEB" HeightRequest="5" Margin="0,0,15,0" />
-                                                        </VerticalStackLayout>
-                                                    </Border>
-                                                    <Border Grid.Column="2" Style="{StaticResource PreviewPlaceholder}" Padding="12">
-                                                        <VerticalStackLayout Spacing="6">
-                                                            <BoxView Color="#BDCFEB" WidthRequest="42" HeightRequest="24" HorizontalOptions="Start" />
-                                                            <BoxView Color="#BDCFEB" HeightRequest="5" />
-                                                            <BoxView Color="#BDCFEB" HeightRequest="5" Margin="0,0,15,0" />
-                                                        </VerticalStackLayout>
-                                                    </Border>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Border>
-                                    <Border Grid.Row="1" BackgroundColor="#ADC7FF" Stroke="#C3D6FF"
-                                            StrokeShape="RoundRectangle 14" Padding="14,8" HorizontalOptions="Center">
-                                        <HorizontalStackLayout Spacing="12">
-                                            <Label Text="▣" TextColor="#126CFF" FontSize="28" />
-                                            <Label Text="◉" TextColor="#157CF8" FontSize="28" />
-                                            <Label Text="✉" TextColor="#126CFF" FontSize="28" />
-                                            <Label Text="✿" TextColor="#F87886" FontSize="28" />
-                                            <Label Text="▤" TextColor="#FFE17B" FontSize="28" />
-                                            <Label Text="▦" TextColor="#FFFFFF" FontSize="28" />
-                                            <Label Text="⚙" TextColor="#5D6574" FontSize="28" />
-                                        </HorizontalStackLayout>
-                                    </Border>
-                                </Grid>
-                            </Border>
-                            <Grid Grid.Row="2" ColumnDefinitions="*,Auto" Padding="10,0">
-                                <Label Text="▱  Built-in Display" Style="{StaticResource HomeLabel}" />
-                                <Label Grid.Column="1" Text="00:00" Style="{StaticResource HomeLabel}" />
-                            </Grid>
-                        </Grid>
-                    </Border>
-
-                    <Border x:Name="CaptureCard" Grid.Row="1" Style="{StaticResource HomeCard}">
-                        <VerticalStackLayout Spacing="16">
-                            <Label Text="Capture" Style="{StaticResource HomeHeading}" Margin="0,4,0,2" />
-                            <Border Style="{StaticResource HomeField}">
-                                <Grid ColumnDefinitions="*,*">
-                                    <RadioButton Content="Screen" GroupName="CaptureSource" IsChecked="True"
-                                                 Style="{StaticResource CaptureOption}" />
-                                    <RadioButton Grid.Column="1" Content="Window" GroupName="CaptureSource"
-                                                 Style="{StaticResource CaptureOption}" />
-                                </Grid>
-                            </Border>
-                            <Picker x:Name="DisplayPicker" Title="Capture display" Style="{StaticResource HomePicker}">
-                                <Picker.Items><x:String>Built-in Display</x:String></Picker.Items>
-                            </Picker>
-                            <BoxView Color="{AppThemeBinding Light={StaticResource HomeLine}, Dark=#414958}" HeightRequest="1" Margin="0,12,0,6" />
-                            <Label Text="GIF settings" Style="{StaticResource HomeHeading}" />
-                            <Grid ColumnDefinitions="*,1.35*" RowDefinitions="Auto,Auto,Auto" RowSpacing="14">
-                                <Label Text="Frame rate" Style="{StaticResource HomeLabel}" />
-                                <Picker x:Name="FrameRatePicker" Grid.Column="1" Title="Frame rate" Style="{StaticResource HomePicker}">
-                                    <Picker.Items>
-                                        <x:String>5 fps</x:String><x:String>10 fps</x:String><x:String>15 fps</x:String><x:String>30 fps</x:String>
-                                    </Picker.Items>
-                                </Picker>
-                                <Label Grid.Row="1" Text="Width" Style="{StaticResource HomeLabel}" />
-                                <Picker x:Name="WidthPicker" Grid.Row="1" Grid.Column="1" Title="GIF width" Style="{StaticResource HomePicker}">
-                                    <Picker.Items>
-                                        <x:String>600 px</x:String><x:String>800 px</x:String><x:String>1200 px</x:String><x:String>Original</x:String>
-                                    </Picker.Items>
-                                </Picker>
-                                <Label Grid.Row="2" Text="Show cursor" Style="{StaticResource HomeLabel}" />
-                                <Switch Grid.Row="2" Grid.Column="1" IsToggled="True" OnColor="{StaticResource HomeBlue}"
-                                        HorizontalOptions="End" SemanticProperties.Description="Show cursor in recordings" />
-                            </Grid>
-                            <Label Text="Smaller dimensions make smaller GIFs." FontSize="15"
-                                   TextColor="{AppThemeBinding Light={StaticResource HomeMuted}, Dark=#AAB3C6}" Margin="0,10,0,0" />
-                            <Label Text="Appearance" Style="{StaticResource HomeHeading}" Margin="0,12,0,0" />
-                            <Picker x:Name="AppearancePicker" Title="Appearance"
-                                    Style="{StaticResource HomePicker}" SelectedIndexChanged="OnAppearanceChanged">
-                                <Picker.Items>
-                                    <x:String>System</x:String><x:String>Light</x:String><x:String>Dark</x:String>
-                                </Picker.Items>
-                            </Picker>
-                        </VerticalStackLayout>
-                    </Border>
-                </Grid>
-            </VerticalStackLayout>
-        </ScrollView>
-
-        <Grid Grid.Row="1" RowDefinitions="1,Auto" BackgroundColor="{AppThemeBinding Light=#FCFCFE, Dark=#151820}">
-            <BoxView Color="{AppThemeBinding Light={StaticResource HomeLine}, Dark=#414958}" />
-            <FlexLayout Grid.Row="1" Direction="Row" Wrap="Wrap" JustifyContent="SpaceBetween"
-                        AlignItems="Center" Padding="24,16">
-                <Label Text="Files stay on your Mac." TextColor="{AppThemeBinding Light={StaticResource HomeMuted}, Dark=#AAB3C6}"
-                       FontSize="15" Margin="0,8,20,8" />
-                <HorizontalStackLayout Spacing="14">
-                    <Button Text="Export GIF…" Style="{StaticResource HomeButton}" IsEnabled="False"
-                            BackgroundColor="{AppThemeBinding Light=#EDEFF4, Dark=#292F3B}" TextColor="{AppThemeBinding Light={StaticResource HomeMuted}, Dark=#AAB3C6}" />
-                    <Button Text="◉  Start recording" Style="{StaticResource HomeButton}" />
-                </HorizontalStackLayout>
-            </FlexLayout>
+    <Grid Padding="24" RowDefinitions="Auto,*,Auto" RowSpacing="20">
+        <Grid ColumnDefinitions="*,Auto">
+            <Label Text="Screen to GIF" Style="{StaticResource HomeHeading}" />
+            <Button Grid.Column="1" Text="⚙" FontSize="24" Padding="8" BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light=#101522, Dark=#F3F5FA}"
+                    SemanticProperties.Description="Settings" Clicked="OnSettings" />
         </Grid>
+        <Button x:Name="SelectButton" Grid.Row="1" Text="Select Area" Style="{StaticResource HomeButton}"
+                VerticalOptions="Center" Clicked="OnSelectArea" />
+        <Label Grid.Row="2" Text="Files stay on your Mac." FontSize="14" HorizontalTextAlignment="Center"
+               TextColor="{AppThemeBinding Light=#7D859B, Dark=#AAB3C6}" />
     </Grid>
 </ContentPage>
